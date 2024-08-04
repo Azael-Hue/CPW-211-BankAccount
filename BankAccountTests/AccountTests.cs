@@ -60,13 +60,8 @@ namespace BankAccount.Tests
                 (() => acc.Deposit(invalidDepositAmount));
         }
 
-        // withdrawing a positive amount - decrease the balance
-        // withdrawing 0 - Throws ArgumentOutException exception
-        // withdrawing a negative amount - throws an ArgumentOutException exception
-        // withdrawing more than the balance - throws an ArgumentException
-
         [TestMethod]
-        public void MyTestMethod()
+        public void Withdraw_PositiveAmount_DecreaseBalance()
         {
             // Arrange
             double initialDeposit = 100;
@@ -82,5 +77,29 @@ namespace BankAccount.Tests
             // Assert
             Assert.AreEqual(expectedBalance, actualBalance);
         }
+
+        [TestMethod]
+        public void Withdraw_PositiveAmount_ReturnsUpdatedBalance()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-.01)]
+        [DataRow(-1000)]
+        public void Withdraw_ZeroOrLess_ThrowArgumentOutOfRangeException()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void Withdraw_MoreThanAvailableBalance_ThrowsArugmentException()
+        {
+            Assert.Fail();
+        }
     }
 }
+
+
+        // withdrawing more than the balance - throws an ArgumentException
