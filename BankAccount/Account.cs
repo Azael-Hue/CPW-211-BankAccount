@@ -38,17 +38,26 @@ namespace BankAccount
         /// <return> The new balance after the deposit </return>
         public double Deposit(double amt)
         {
+            if (amt <=0)
+            {
+                throw new ArgumentOutOfRangeException($"The {nameof(amt)} must be more than 0");
+            }
+
             Balance += amt;
             return Balance;
         }
 
         /// <summary>
-        /// Withdraw a specified amount of money from the account
+        /// Withdraw a specified amount of money from the balance and
+        /// returns the updated balance
         /// </summary>
-        /// <param name="amt"> The positive amount of money to be taken from the account </param>
-        public void withdraw(double amt)
+        /// <param name="amt"> The positive amount of money to be
+        /// taken from the balance </param>
+        /// <returns> Returns updated balance after withdrawal</returns>
+        public double withdraw(double amt)
         {
-            throw new NotImplementedException();
+            Balance -= amt;
+            return Balance;
         }
     }
 }
