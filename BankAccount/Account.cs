@@ -12,6 +12,8 @@ namespace BankAccount
     /// </summary>
     public class Account
     {
+        private string owner;
+
         /// <summary>
         /// Creates a new account with the specified owner name and a zero balance
         /// </summary>
@@ -24,7 +26,63 @@ namespace BankAccount
         /// <summary>
         /// The account holders full name (first and last)
         /// </summary>
-        public string Owner { get; set; }
+        public string Owner 
+        { 
+            get { return owner; }
+            set 
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException($"{nameof(Owner)} cannot be null");
+                }
+
+                if (value.Trim() == string.Empty)
+                {
+                    throw new ArgumentException($"{nameof(Owner)} cannot be empty");
+                }
+
+                if (IsOwnerValid(value))
+                {
+                    owner = value;
+                }
+                else
+                {
+                    throw new ArgumentException($"{nameof(Owner)} can be up to 20 characters, A-Z/spaces only");
+                }
+                owner = value;
+            }
+        }
+
+        /// <summary>
+        /// Checks if owner name is less than or equal to 20 characters and contains only A-Z
+        /// and whitespaces characters are allowed
+        /// </summary>
+        /// <returns></returns>
+        private bool IsOwnerValid(string ownerName)
+        {
+            char[] validCharacters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'
+                    , 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w'
+                    , 'x', 'y', 'z' };
+
+            ownerName = ownerName.ToLower(); // Only need to compare to one casing
+
+            const int maxLengthOwnerName = 20;
+
+            if (ownerName.Length > maxLengthOwnerName)
+            {
+                return false;
+            }
+
+            foreach(char letter in ownerName)
+            {
+                if( letter != ' ' && !validCharacters.Contains(letter))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         /// <summary>
         /// The amount of money currently in the account
